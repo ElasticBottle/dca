@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "https://mendel3.bii.a-star.edu.sg/METHODS/corona/gamma/GISAID/dca/static/css/main.6dea0f05.chunk.css",
+    "main.js": "https://mendel3.bii.a-star.edu.sg/METHODS/corona/gamma/GISAID/dca/static/js/main.fdd6594b.chunk.js",
+    "main.js.map": "https://mendel3.bii.a-star.edu.sg/METHODS/corona/gamma/GISAID/dca/static/js/main.fdd6594b.chunk.js.map",
+    "runtime-main.js": "https://mendel3.bii.a-star.edu.sg/METHODS/corona/gamma/GISAID/dca/static/js/runtime-main.bdbac078.js",
+    "runtime-main.js.map": "https://mendel3.bii.a-star.edu.sg/METHODS/corona/gamma/GISAID/dca/static/js/runtime-main.bdbac078.js.map",
+    "static/css/2.150d169a.chunk.css": "https://mendel3.bii.a-star.edu.sg/METHODS/corona/gamma/GISAID/dca/static/css/2.150d169a.chunk.css",
+    "static/js/2.85905663.chunk.js": "https://mendel3.bii.a-star.edu.sg/METHODS/corona/gamma/GISAID/dca/static/js/2.85905663.chunk.js",
+    "static/js/2.85905663.chunk.js.map": "https://mendel3.bii.a-star.edu.sg/METHODS/corona/gamma/GISAID/dca/static/js/2.85905663.chunk.js.map",
+    "static/js/3.23c97527.chunk.js": "https://mendel3.bii.a-star.edu.sg/METHODS/corona/gamma/GISAID/dca/static/js/3.23c97527.chunk.js",
+    "static/js/3.23c97527.chunk.js.map": "https://mendel3.bii.a-star.edu.sg/METHODS/corona/gamma/GISAID/dca/static/js/3.23c97527.chunk.js.map",
+    "index.html": "https://mendel3.bii.a-star.edu.sg/METHODS/corona/gamma/GISAID/dca/index.html",
+    "static/css/2.150d169a.chunk.css.map": "https://mendel3.bii.a-star.edu.sg/METHODS/corona/gamma/GISAID/dca/static/css/2.150d169a.chunk.css.map",
+    "static/css/main.6dea0f05.chunk.css.map": "https://mendel3.bii.a-star.edu.sg/METHODS/corona/gamma/GISAID/dca/static/css/main.6dea0f05.chunk.css.map",
+    "static/js/2.85905663.chunk.js.LICENSE.txt": "https://mendel3.bii.a-star.edu.sg/METHODS/corona/gamma/GISAID/dca/static/js/2.85905663.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.bdbac078.js",
+    "static/css/2.150d169a.chunk.css",
+    "static/js/2.85905663.chunk.js",
+    "static/css/main.6dea0f05.chunk.css",
+    "static/js/main.fdd6594b.chunk.js"
+  ]
+}
