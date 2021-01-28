@@ -4,51 +4,59 @@ import * as Yup from "yup";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-
-import { PDFDownloadLink } from "@react-pdf/renderer";
+import { saveAs } from "file-saver";
+import { pdf } from "@react-pdf/renderer";
 import Pdf from "./pdf";
 
 const schema = Yup.object().shape({
   name: Yup.string().required("Required"),
+  institute: Yup.string().required("Required"),
   email: Yup.string().email("Invalid email address").required("Required"),
   streetAddress: Yup.string().required("Required"),
   state: Yup.string().required("Required"),
   zip: Yup.string().required("Required"),
   webAppName: Yup.string().required("Required"),
-  url: Yup.string().url("Invalid URL").required("Required"),
+  // url: Yup.string().url("Invalid URL").required("Required"),
   purposeWebApp: Yup.string()
     .min(30, "Please Elaborate More")
     .required("Required"),
 });
 
 const UserDetails = () => {
-  const [pdf, setPdf] = React.useState("");
   return (
     <Formik
       initialValues={{
         name: "",
         email: "",
+        institute: "",
         streetAddress: "",
         state: "",
         zip: "",
         webAppName: "",
-        url: "",
+        // url: "",
         purposeWebApp: "",
       }}
       validationSchema={schema}
       onSubmit={(values, { setSubmitting }) => {
-        setPdf(
+        setSubmitting(true);
+        pdf(
           <Pdf
             name={values.name}
             email={values.email}
+            institute={values.isInvalid}
             street={values.streetAddress}
             state={values.state}
             zip={values.zip}
             webName={values.webAppName}
-            url={values.url}
+            // url={values.url}
             webPurpose={values.purposeWebApp}
           />
-        );
+        )
+          .toBlob()
+          .then((result) => {
+            setSubmitting(false);
+            saveAs(result, "dca_gisaid.pdf");
+          });
       }}
     >
       {({
@@ -57,6 +65,7 @@ const UserDetails = () => {
         handleBlur,
         values,
         touched,
+        isSubmitting,
         isValid,
         errors,
       }) => (
@@ -90,6 +99,23 @@ const UserDetails = () => {
               />
               <Form.Control.Feedback type="invalid">
                 {errors.email}
+              </Form.Control.Feedback>
+            </Form.Group>
+          </Form.Row>
+          <Form.Row>
+            <Form.Group as={Col} xs="12" controlId="Name">
+              <Form.Label>Institute</Form.Label>
+              <Form.Control
+                type="text"
+                name="institute"
+                placeholder="Institution Name"
+                value={values.institute}
+                onChange={handleChange}
+                isValid={touched.institute && !errors.institute}
+                isInvalid={!!errors.institute}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.institute}
               </Form.Control.Feedback>
             </Form.Group>
           </Form.Row>
@@ -142,7 +168,7 @@ const UserDetails = () => {
           </Form.Row>
           <hr />
           <Form.Row>
-            <Form.Group as={Col} md="6" controlId="webAppName">
+            <Form.Group as={Col} md="12" controlId="webAppName">
               <Form.Label>Name of Web Application</Form.Label>
               <Form.Control
                 type="text"
@@ -157,7 +183,7 @@ const UserDetails = () => {
                 {errors.webAppName}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group as={Col} md="6" controlId="State">
+            {/* <Form.Group as={Col} md="6" controlId="State">
               <Form.Label>URL</Form.Label>
               <Form.Control
                 type="text"
@@ -171,13 +197,13 @@ const UserDetails = () => {
               <Form.Control.Feedback type="invalid">
                 {errors.state}
               </Form.Control.Feedback>
-            </Form.Group>
+            </Form.Group> */}
             <Form.Group as={Col} md="12" controlId="Zip">
               <Form.Label>Purpose of Web Application</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}
-                placeholder="Please Elaborate on what you intend to use your web application for."
+                placeholder="Please explain the purpose of the web application, how the data will be used, its functionalities/features, the intended audience/users, and any other information you think will help GISAID determine what data you require. Please attach screenshot/mockups"
                 name="purposeWebApp"
                 value={values.purposeWebApp}
                 onChange={handleChange}
@@ -189,26 +215,9 @@ const UserDetails = () => {
               </Form.Control.Feedback>
             </Form.Group>
           </Form.Row>
-          {pdf ? (
-            <PDFDownloadLink
-              document={pdf}
-              fileName="dca_gisaid.pdf"
-              style={{
-                padding: "10px",
-                borderRadius: "5%",
-                backgroundColor: "#17c9ff",
-                color: "white",
-              }}
-            >
-              {({ blob, url, loading, error }) =>
-                loading ? "Processing..." : "Download"
-              }
-            </PDFDownloadLink>
-          ) : (
-            <Button type="submit" variant="dark">
-              Generate Agreement PDF
-            </Button>
-          )}
+          <Button type="submit" variant="dark">
+            {isSubmitting ? "Loading..." : "Generate Agreement PDF"}
+          </Button>
         </Form>
       )}
     </Formik>
