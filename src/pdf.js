@@ -4,12 +4,21 @@ import { View, Page, Text, Document, StyleSheet } from "@react-pdf/renderer";
 
 const styles = StyleSheet.create({
   body: {
-    paddingTop: 40,
+    paddingTop: 60,
     paddingBottom: 80,
     paddingHorizontal: 50,
     fontFamily: "openSans",
   },
   inlineImage: { width: 50 },
+  hr: {
+    border: "1px solid #000",
+    height: 1,
+    width: 150,
+    color: "black",
+    backgroundColor: "black",
+    marginLeft: 40,
+    marginTop: 70,
+  },
   title: {
     paddingTop: 10,
     paddingBottom: 20,
@@ -45,7 +54,7 @@ const styles = StyleSheet.create({
     textAlign: "justify",
   },
   textEvenMoreSpacing: {
-    marginTop: 100,
+    marginTop: 220,
     marginLeft: 40,
     marginRight: 40,
     fontSize: 10,
@@ -59,13 +68,22 @@ const styles = StyleSheet.create({
   },
   pageNumber: {
     position: "absolute",
-    fontSize: 9,
+    fontSize: 7,
+    top: 20,
+    left: 0,
+    right: 0,
+    paddingHorizontal: 50,
+    textAlign: "center",
+    color: "grey",
+  },
+  footer: {
+    position: "absolute",
+    fontSize: 7,
     bottom: 30,
     left: 0,
     right: 0,
-    paddingLeft: 50,
-    paddingRight: 50,
-    textAlign: "center",
+    paddingHorizontal: 50,
+    textAlign: "left",
     color: "grey",
   },
 });
@@ -84,7 +102,6 @@ const Pdf = ({
   <Document>
     <Page size="A4" style={styles.body}>
       <Text style={styles.title}>DATA CONNECTIVITY APPLICATION</Text>
-
       <Text style={styles.text}>
         {" "}
         <Text
@@ -94,7 +111,7 @@ const Pdf = ({
             fontStyle: "bold",
           }}
         >
-          {"                 "}Name:{" "}
+          Name:{"                                      "}
         </Text>
         {name}
       </Text>
@@ -107,7 +124,7 @@ const Pdf = ({
             fontStyle: "bold",
           }}
         >
-          {"                  "}Email:{" "}
+          Email:{"                                       "}
         </Text>
         {email}
       </Text>
@@ -120,7 +137,7 @@ const Pdf = ({
             fontStyle: "bold",
           }}
         >
-          Street Address:{" "}
+          Street Address:{"                     "}
         </Text>
         {street}
       </Text>
@@ -133,7 +150,7 @@ const Pdf = ({
             fontStyle: "bold",
           }}
         >
-          {"                "}State:{" "}
+          City, State / Province:{"         "}
         </Text>
         {state}
       </Text>
@@ -146,11 +163,10 @@ const Pdf = ({
             fontStyle: "bold",
           }}
         >
-          {"                   "}Zip:{" "}
+          Country, Zip/Postal Code:{" "}
         </Text>
         {zip}
       </Text>
-
       <Text style={styles.text}>
         Freunde von GISAID e.V., ("
         <Text style={{ fontFamily: "openSans", fontStyle: "bold" }}>
@@ -170,9 +186,9 @@ const Pdf = ({
       </Text>
       <Text style={styles.text}>
         You, {name} ("
-        <Text style={{ fontFamily: "openSans", fontStyle: "bold" }}>You</Text>”)
-        are affiliated with {institute}. You have agreed to be bound by the DAA,
-        and are an Authorized User within the meaning of the DAA.
+        <Text style={{ fontFamily: "openSans", fontStyle: "bold" }}>You</Text>
+        ”), are affiliated with {institute}. You have agreed to be bound by the
+        DAA, and are an Authorized User within the meaning of the DAA.
       </Text>
       <Text style={styles.text}>
         You are applying for permission from GISAID to store and use certain
@@ -188,16 +204,16 @@ const Pdf = ({
       </Text>
       <Text style={styles.text}>
         <Text style={{ fontFamily: "openSans", fontStyle: "bold" }}>
-          Name of Project:{" "}
+          Name of Research Project:{" "}
         </Text>
         {webName}
       </Text>
       <Text style={styles.textLessSpacing}>
         <Text style={{ fontFamily: "openSans", fontStyle: "bold" }}>
-          Purpose of Project:{" "}
-        </Text>{" "}
-        {webPurpose}
+          Description of Research Project:{" "}
+        </Text>
       </Text>
+      <Text style={styles.textLessSpacing}>{webPurpose}</Text>
       <Text style={styles.text}>
         By signing this Application, You acknowledge that You have read and
         understand the terms of the Data Connectivity Agreement, below, and that
@@ -346,7 +362,6 @@ const Pdf = ({
         website, or to store such Data other than in connection with the
         Project.
       </Text>
-
       <Text style={styles.text}>
         <Text style={{ fontFamily: "openSans", fontStyle: "bold" }}>
           3.{"    "}MISCELLANEOUS
@@ -380,7 +395,8 @@ const Pdf = ({
           Sign Below:
         </Text>
       </Text>
-      <Text style={styles.textMoreSpacing}>
+      <View style={styles.hr} />
+      <Text style={styles.text}>
         {name}
         {"     "}
         {date.toISOString().slice(0, 10)}
@@ -403,18 +419,28 @@ const Pdf = ({
           DATA PACKAGE{" "}
         </Text>
       </Text>
+      {/* // TODO ADd more space above for the data package. */}
       <Text style={styles.textEvenMoreSpacing}>Freunde von GISAID e.V.</Text>
-      <Text style={styles.textLessSpacing}>secretariat@gisaid.org By:</Text>
       <Text style={styles.textLessSpacing}>By:</Text>
-      <Text style={styles.textMoreSpacing}>Date:</Text>
+      <View style={styles.hr} />
+      <Text style={styles.text}>Date:</Text>
       <Text
         style={styles.pageNumber}
         render={({ pageNumber, totalPages }) =>
-          `Reproduction or redistribution of the Application and/or Data Connectivity Agreement, in whole or in part, is not permitted without express written authorization of GISAID. \n GISAID DCA (public web app.) \n 27/1/2021`
+          `${pageNumber === 1 ? "" : pageNumber}`
+        }
+        fixed
+      />
+      <Text
+        style={styles.footer}
+        render={({ pageNumber, totalPages }) =>
+          `Reproduction or redistribution of the Application and/or Data Connectivity Agreement, in whole or in part, is not permitted without express written authorization of GISAID. \n APPLICATION DCA (Research Project). 30/1/2021`
         }
         fixed
       />
     </Page>
+
+    {/* // TODO GET SOME TEXT over to the new page */}
   </Document>
 );
 

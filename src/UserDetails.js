@@ -43,7 +43,7 @@ const UserDetails = () => {
           <Pdf
             name={values.name}
             email={values.email}
-            institute={values.isInvalid}
+            institute={values.institute}
             street={values.streetAddress}
             state={values.state}
             zip={values.zip}
@@ -104,11 +104,11 @@ const UserDetails = () => {
           </Form.Row>
           <Form.Row>
             <Form.Group as={Col} xs="12" controlId="Name">
-              <Form.Label>Institute</Form.Label>
+              <Form.Label>Affiliation</Form.Label>
               <Form.Control
                 type="text"
                 name="institute"
-                placeholder="Institution Name"
+                placeholder="Institution or company with which you ar affiliated."
                 value={values.institute}
                 onChange={handleChange}
                 isValid={touched.institute && !errors.institute}
@@ -136,10 +136,10 @@ const UserDetails = () => {
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group as={Col} md="3" controlId="State">
-              <Form.Label>State</Form.Label>
+              <Form.Label>City, State/Province</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="State"
+                placeholder="City, State/Province"
                 name="state"
                 value={values.state}
                 onChange={handleChange}
@@ -151,10 +151,10 @@ const UserDetails = () => {
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group as={Col} md="3" controlId="Zip">
-              <Form.Label>Zip</Form.Label>
+              <Form.Label>Country and Zip / Postal Code</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Zip"
+                placeholder="Country and Zip / Postal Code"
                 name="zip"
                 value={values.zip}
                 onChange={handleChange}
@@ -169,10 +169,10 @@ const UserDetails = () => {
           <hr />
           <Form.Row>
             <Form.Group as={Col} md="12" controlId="webAppName">
-              <Form.Label>Name of Web Application</Form.Label>
+              <Form.Label>Name of Research Project</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Name of your Web Application"
+                placeholder="Name of Research Project"
                 name="webAppName"
                 value={values.webAppName}
                 onChange={handleChange}
@@ -199,11 +199,11 @@ const UserDetails = () => {
               </Form.Control.Feedback>
             </Form.Group> */}
             <Form.Group as={Col} md="12" controlId="Zip">
-              <Form.Label>Purpose of Web Application</Form.Label>
+              <Form.Label>Description of Research Project</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}
-                placeholder="Please explain the purpose of the web application, how the data will be used, its functionalities/features, the intended audience/users, and any other information you think will help GISAID determine what data you require. Please attach screenshot/mockups"
+                placeholder="Please describe your research project including the scope and purpose of the work, and how the data will be used"
                 name="purposeWebApp"
                 value={values.purposeWebApp}
                 onChange={handleChange}

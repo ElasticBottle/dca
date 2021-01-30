@@ -28,7 +28,7 @@ export const App = () => {
         style={{ textAlign: "center", fontWeight: "bold", fontSize: "2rem" }}
         className="mt-5"
       >
-        Data Connectivity Application Form Generator
+        Data Connectivity Application
       </h1>
       <div
         style={{ textAlign: "center", fontWeight: "lighter" }}
@@ -43,3 +43,6 @@ export const App = () => {
 };
 
 export default App;
+
+// left justify
+// in
