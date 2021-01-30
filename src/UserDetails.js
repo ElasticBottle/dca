@@ -108,7 +108,7 @@ const UserDetails = () => {
               <Form.Control
                 type="text"
                 name="institute"
-                placeholder="Institution or company with which you ar affiliated."
+                placeholder="Institution or company with which you are affiliated."
                 value={values.institute}
                 onChange={handleChange}
                 isValid={touched.institute && !errors.institute}
