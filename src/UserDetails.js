@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import { saveAs } from "file-saver";
 import { pdf } from "@react-pdf/renderer";
@@ -20,9 +21,21 @@ const schema = Yup.object().shape({
   purposeWebApp: Yup.string()
     .min(30, "Please Elaborate More")
     .required("Required"),
+  researchFocus: Yup.string().required(),
+  researchFocusOther: Yup.string(),
 });
 
 const UserDetails = () => {
+  const researchFocus = React.useRef([
+    "Surveillance",
+    "Clinical",
+    "Sequencing Technology",
+    "Other",
+  ]);
+  const [currResearchFocus, setCurrResearchFocus] = React.useState(
+    researchFocus.current[0]
+  );
+
   return (
     <Formik
       initialValues={{
@@ -35,10 +48,12 @@ const UserDetails = () => {
         webAppName: "",
         // url: "",
         purposeWebApp: "",
+        researchFocus: currResearchFocus,
       }}
       validationSchema={schema}
       onSubmit={(values, { setSubmitting }) => {
         setSubmitting(true);
+        console.log("values:", values);
         pdf(
           <Pdf
             name={values.name}
@@ -50,6 +65,8 @@ const UserDetails = () => {
             webName={values.webAppName}
             // url={values.url}
             webPurpose={values.purposeWebApp}
+            researchFocus={values.researchFocus}
+            researchFocusOther={values.researchFocusOther}
           />
         )
           .toBlob()
@@ -213,6 +230,59 @@ const UserDetails = () => {
               <Form.Control.Feedback type="invalid">
                 {errors.purposeWebApp}
               </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col} md="12">
+              <Form.Label>Research Focus</Form.Label>
+              <Row>
+                {researchFocus.current.map((focusArea, index) => {
+                  return (
+                    <Col sm={12} md="auto" key={focusArea}>
+                      <Form.Check
+                        checked={focusArea === currResearchFocus}
+                        className="mr-3"
+                        type="radio"
+                        label={focusArea}
+                        name="researchFocus"
+                        id={`researchFocus${index}`}
+                        onChange={(e) => {
+                          const value = e.target.nextSibling.innerText;
+                          setCurrResearchFocus(value);
+                          handleChange({
+                            target: {
+                              value: value,
+                              name: "researchFocus",
+                              id: "researchFocus",
+                            },
+                          });
+                        }}
+                        isInvalid={!!errors.researchFocus}
+                        feedback={errors.researchFocus}
+                      />
+                    </Col>
+                  );
+                })}
+                {currResearchFocus ==
+                researchFocus.current[researchFocus.current.length - 1] ? (
+                  <Col sm={12}>
+                    <Form.Control
+                      as="textarea"
+                      className="mt-3"
+                      rows={3}
+                      placeholder="Please describe your research focus"
+                      name="researchFocusOther"
+                      value={values.researchFocusOther}
+                      onChange={handleChange}
+                      isValid={
+                        touched.researchFocusOther && !errors.researchFocusOther
+                      }
+                      isInvalid={!!errors.researchFocusOther}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.researchFocusOther}
+                    </Form.Control.Feedback>
+                  </Col>
+                ) : null}
+              </Row>
             </Form.Group>
           </Form.Row>
           <Button type="submit" variant="dark">

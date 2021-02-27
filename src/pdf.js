@@ -97,6 +97,8 @@ const Pdf = ({
   institute,
   webName,
   webPurpose,
+  researchFocus,
+  researchFocusOther,
   date = new Date(),
 }) => (
   <Document>
@@ -214,6 +216,13 @@ const Pdf = ({
         </Text>
       </Text>
       <Text style={styles.textLessSpacing}>{webPurpose}</Text>
+      <Text style={styles.textLessSpacing}>
+        <Text style={{ fontFamily: "openSans", fontStyle: "bold" }}>
+          Research Focus:{" "}
+        </Text>
+        {researchFocus == "Other" ? researchFocusOther : researchFocus}
+      </Text>
+
       <Text style={styles.text}>
         By signing this Application, You acknowledge that You have read and
         understand the terms of the Data Connectivity Agreement, below, and that
