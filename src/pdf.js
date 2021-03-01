@@ -220,7 +220,7 @@ const Pdf = ({
         <Text style={{ fontFamily: "openSans", fontStyle: "bold" }}>
           Research Focus:{" "}
         </Text>
-        {researchFocus == "Other" ? researchFocusOther : researchFocus}
+        {researchFocus === "Other" ? researchFocusOther : researchFocus}
       </Text>
 
       <Text style={styles.text}>

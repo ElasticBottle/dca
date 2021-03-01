@@ -32,9 +32,7 @@ const UserDetails = () => {
     "Sequencing Technology",
     "Other",
   ]);
-  const [currResearchFocus, setCurrResearchFocus] = React.useState(
-    researchFocus.current[0]
-  );
+  const [currResearchFocus, setCurrResearchFocus] = React.useState("");
 
   return (
     <Formik
@@ -227,9 +225,6 @@ const UserDetails = () => {
                 isValid={touched.purposeWebApp && !errors.purposeWebApp}
                 isInvalid={!!errors.purposeWebApp}
               />
-              <Form.Control.Feedback type="invalid">
-                {errors.purposeWebApp}
-              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group as={Col} md="12">
               <Form.Label>Research Focus</Form.Label>
@@ -256,7 +251,7 @@ const UserDetails = () => {
                           });
                         }}
                         isInvalid={!!errors.researchFocus}
-                        feedback={errors.researchFocus}
+                        feedback={index === 0 ? errors.researchFocus : null}
                       />
                     </Col>
                   );
